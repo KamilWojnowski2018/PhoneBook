@@ -1,0 +1,81 @@
+﻿@model IEnumerable<PhoneBook.Models.PersonModel>
+
+@{
+    ViewBag.Title = "Lista Twoich kontaktów";
+}
+
+<h2>Lista Twoich kontaktów</h2>
+<p></p>
+@using (Html.BeginForm("Search", "Person", FormMethod.Post))
+{
+    <div>
+        <div style="float:right">
+            <input type="submit" value="Wyszukaj" class="btn btn-default" />
+        </div>
+        <div style="float:right">
+            @Html.TextBox("TextBox", "Wpisz nazwisko", new { @class = "form-control" })
+        </div>
+   </div>
+}
+<p>
+    @Html.ActionLink("Dodaj nowy kontakt", "Add")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Updated)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
+            <td>
+                @Html.ActionLink("Edytuj", "Edit", new { id = item.ID })
+                @Html.ActionLink("Usuń", "Remove", new { id = item.ID })
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+<H1>
+    @(TempData["ID"])
+    @(TempData["Edit"])
+    @(TempData["Remove"])
+</H1>
